@@ -18,7 +18,7 @@ pipeline {
 
         stage('Image build') {
             steps {
-                sh "docker build -t seidex_labs2024:latest ."
+                sh "docker build -t seidex_labs20024:latest ."
                 sh "docker tag seidex_labs2024 seidexx/seidex_labs2024:latest"
                 sh "docker tag seidex_labs2024 seidexx/seidex_labs2024:$BUILD_NUMBER"
             }
