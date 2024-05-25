@@ -6,6 +6,14 @@ pipeline {
             steps {
                 echo 'Lab_2: started by GitHub'
             }
+            post{
+                failure {
+                    script {
+                    // Send Telegram notification on success
+                    telegramSend message: "Job Name: ${env.JOB_NAME}\nBranch: ${env.GIT_BRANCH}\nBuild #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nFailure stage: '${env.STAGE_NAME}'"
+                    }
+                }
+            }
         }
 
         stage('Image build') {
@@ -13,6 +21,14 @@ pipeline {
                 sh "docker build -t seidex_labs2024:latest ."
                 sh "docker tag seidex_labs2024 seidexx/seidex_labs2024:latest"
                 sh "docker tag seidex_labs2024 seidexx/seidex_labs2024:$BUILD_NUMBER"
+            }
+            post{
+                failure {
+                    script {
+                    // Send Telegram notification on success
+                    telegramSend message: "Job Name: ${env.JOB_NAME}\nBranch: ${env.GIT_BRANCH}\nBuild #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nFailure stage: '${env.STAGE_NAME}'"
+                    }
+                }
             }
         }
 
@@ -22,6 +38,14 @@ pipeline {
                 {
                     sh "docker push seidexx/seidex_labs2024:latest"
                     sh "docker push seidexx/seidex_labs2024:$BUILD_NUMBER"
+                }
+            }
+            post{
+                failure {
+                    script {
+                    // Send Telegram notification on success
+                    telegramSend message: "Job Name: ${env.JOB_NAME}\nBranch: ${env.GIT_BRANCH}\nBuild #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nFailure stage: '${env.STAGE_NAME}'"
+                    }
                 }
             }
         }
@@ -34,6 +58,26 @@ pipeline {
                 //sh "docker rmi \$(docker images -q) || true"
                 sh "docker run -d -p 80:80 seidexx/seidex_labs2024"
             }
+
+            post{
+                failure {
+                    script {
+                    // Send Telegram notification on success
+                    telegramSend message: "Job Name: ${env.JOB_NAME}\nBranch: ${env.GIT_BRANCH}\nBuild #${env.BUILD_NUMBER}: ${currentBuild.currentResult}\nFailure stage: '${env.STAGE_NAME}'"
+                    }
+                }
+            }
         }
     }   
+        
+
+    post {
+        success {
+            script {
+                // Send Telegram notification on success
+                telegramSend message: "Job Name: ${env.JOB_NAME}\n Branch: ${env.GIT_BRANCH}\nBuild #${env.BUILD_NUMBER}: ${currentBuild.currentResult}"
+            }
+        }
+    }
+
 }
