@@ -8,7 +8,7 @@ pipeline {
     stages {
         stage('Start') {
             steps {
-                echo 'Lab_4: start for monitoring'
+                echo 'Lab_5: start for monitoring and Jenkins'
             }
             post{
                 failure {
