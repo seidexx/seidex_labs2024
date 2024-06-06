@@ -1,7 +1,7 @@
 import jenkins.model.*
 
 def instance = Jenkins.getInstance()
-def job = instance.getItem('Lab_5')
+def job = instance.getItem('Lab_7')
 
 if (job) {
     println("Triggering job: ${job.name}")

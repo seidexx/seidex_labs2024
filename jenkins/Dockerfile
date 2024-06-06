@@ -7,7 +7,7 @@ ENV JENKINS_PASS admin
 ENV JAVA_OPTS -Djenkins.install.runSetupWizard=false
 COPY plugins.txt /usr/share/jenkins/plugins.txt
 RUN jenkins-plugin-cli -f /usr/share/jenkins/plugins.txt
-COPY config.xml /usr/share/jenkins/ref/jobs/Lab_5/config.xml
+COPY config.xml /usr/share/jenkins/ref/jobs/Lab_7/config.xml
 
 USER root
 # Create credentials
