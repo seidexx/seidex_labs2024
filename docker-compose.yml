@@ -91,6 +91,17 @@ services:
     networks:
       - back-tier
 
+  telbot:
+    image: telbot_master
+    build: 
+      context: ./curs/
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    ports:
+      - 8100:8100
+    networks:
+      - back-tier
+
 volumes:
     jenkins_data: {}
     prometheus-data: {}
